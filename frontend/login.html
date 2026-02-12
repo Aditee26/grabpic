@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendee - GrabPic</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-user"></i> Find Your Photos</h1>
+            <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Home</a>
+        </header>
+
+        <main>
+            <div class="login-section">
+                <h2>Enter Event Code</h2>
+                <p class="subtitle">Get the code from your event organizer</p>
+                
+                <div class="form-group">
+                    <label for="eventCode">Event Code</label>
+                    <input type="text" id="eventCode" placeholder="e.g., ABC123XY">
+                    <p class="help-text">This is usually an 8-character code shared by the organizer</p>
+                </div>
+                
+                <button id="checkEventBtn" class="btn btn-primary">
+                    <i class="fas fa-arrow-right"></i> Continue
+                </button>
+                
+                <div id="eventCheckResult" class="hidden"></div>
+            </div>
+
+            <div class="camera-section hidden" id="cameraSection">
+                <h2>Take a Selfie</h2>
+                <p class="subtitle">We'll use this to find photos of you</p>
+                
+                <div class="camera-container">
+                    <video id="cameraPreview" autoplay playsinline></video>
+                    <canvas id="photoCanvas" class="hidden"></canvas>
+                    
+                    <div class="camera-controls">
+                        <button id="captureBtn" class="btn btn-secondary">
+                            <i class="fas fa-camera"></i> Capture Selfie
+                        </button>
+                        <button id="retakeBtn" class="btn btn-outline hidden">
+                            <i class="fas fa-redo"></i> Retake
+                        </button>
+                    </div>
+                    
+                    <div id="photoPreview" class="hidden">
+                        <img id="capturedPhoto" src="" alt="Captured photo">
+                        <p>Is this photo clear? <button id="usePhotoBtn" class="btn btn-primary">Yes, Find My Photos!</button></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="results-section hidden" id="resultsSection">
+                <h2>Your Photos <span id="photoCount"></span></h2>
+                <div id="resultsMessage"></div>
+                
+                <div id="gallery" class="gallery"></div>
+                
+                <div class="action-buttons">
+                    <button id="viewMoreBtn" class="btn btn-secondary hidden">
+                        <i class="fas fa-images"></i> View More Photos
+                    </button>
+                    <button id="downloadAllBtn" class="btn btn-primary hidden">
+                        <i class="fas fa-download"></i> Download All
+                    </button>
+                    <button id="newSearchBtn" class="btn btn-outline">
+                        <i class="fas fa-search"></i> Search Again
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="camera.js"></script>
+</body>
+</html>

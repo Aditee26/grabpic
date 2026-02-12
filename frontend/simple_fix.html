@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>GrabPic - Fixed Version</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 40px; background: #f5f5f5; }
+        .container { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        h1 { color: #4a6fa5; text-align: center; }
+        .section { margin: 30px 0; padding: 20px; border: 1px solid #ddd; border-radius: 8px; }
+        input, button { padding: 12px; margin: 10px 0; width: 100%; font-size: 16px; }
+        button { background: #4a6fa5; color: white; border: none; cursor: pointer; }
+        button:hover { background: #3a5a8c; }
+        .result { margin-top: 20px; padding: 15px; border-radius: 5px; }
+        .success { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📸 GrabPic - Fixed Version</h1>
+        
+        <div class="section">
+            <h2>🎪 I'm an Organizer</h2>
+            <input type="text" id="eventName" placeholder="Event Name">
+            <button onclick="createEvent()">Create Event</button>
+            <div id="organizerResult"></div>
+        </div>
+        
+        <div class="section">
+            <h2>👤 I'm an Attendee</h2>
+            <input type="text" id="eventCode" placeholder="Enter 8-character code">
+            <button onclick="checkEvent()">Find My Photos</button>
+            <div id="attendeeResult"></div>
+        </div>
+    </div>
+
+    <script>
+        function createEvent() {
+            const eventName = document.getElementById('eventName').value.trim();
+            if (!eventName) {
+                showResult('organizerResult', 'Please enter an event name', 'error');
+                return;
+            }
+            
+            fetch('http://localhost:5000/api/create_event', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({event_name: eventName})
+            })
+            .then(r => r.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    showResult('organizerResult', 
+                        `<strong>✅ Event Created!</strong><br>
+                         Event Code: <code>${data.event_code}</code><br>
+                         Share this code with attendees.`, 
+                        'success');
+                } else {
+                    showResult('organizerResult', data.message, 'error');
+                }
+            })
+            .catch(error => {
+                showResult('organizerResult', 'Error: ' + error.message, 'error');
+            });
+        }
+        
+        function checkEvent() {
+            const eventCode = document.getElementById('eventCode').value.trim().toUpperCase();
+            if (!eventCode) {
+                showResult('attendeeResult', 'Please enter an event code', 'error');
+                return;
+            }
+            
+            fetch('http://localhost:5000/api/check_event', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({event_code: eventCode})
+            })
+            .then(r => {
+                if (r.ok) return r.json();
+                throw new Error('Event not found');
+            })
+            .then(data => {
+                if (data.status === 'success') {
+                    showResult('attendeeResult', 
+                        `<strong>✅ Event Found!</strong><br>
+                         Event: ${data.event_name}<br>
+                         Code: ${data.event_code}<br><br>
+                         <button onclick="location.href='/gallery?event=${data.event_code}'">View Photos</button>`, 
+                        'success');
+                } else {
+                    showResult('attendeeResult', data.message || 'Event not found', 'error');
+                }
+            })
+            .catch(error => {
+                showResult('attendeeResult', 'Error: ' + error.message, 'error');
+            });
+        }
+        
+        function showResult(elementId, message, type) {
+            const element = document.getElementById(elementId);
+            element.innerHTML = `<div class="${type}">${message}</div>`;
+        }
+    </script>
+</body>
+</html>

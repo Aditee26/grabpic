@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GrabPic - Find Your Event Photos Instantly</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-camera-retro"></i> GrabPic</h1>
+            <p class="tagline">Find yourself in thousands of event photos with just one selfie</p>
+        </header>
+
+        <main>
+            <div class="hero">
+                <div class="hero-text">
+                    <h2>Event Photo Headache? Solved.</h2>
+                    <p>Organizers upload photos. You take a selfie. We find all your photos instantly.</p>
+                    
+                    <div class="cta-buttons">
+                        <a href="upload.html" class="btn btn-primary">
+                            <i class="fas fa-cloud-upload-alt"></i> I'm an Organizer
+                        </a>
+                        <a href="login.html" class="btn btn-secondary">
+                            <i class="fas fa-user"></i> I'm an Attendee
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="hero-image">
+                    <div class="image-placeholder">
+                        <i class="fas fa-images"></i>
+                        <p>Thousands of photos organized automatically</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="features">
+                <h2>How It Works</h2>
+                <div class="steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <h3>Organizer Uploads</h3>
+                        <p>Event organizer uploads all photos to a private space</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <h3>AI Processing</h3>
+                        <p>Our system automatically identifies and groups every face</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <h3>Attendee Selfie</h3>
+                        <p>You take a quick selfie when you log in</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <h3>Instant Results</h3>
+                        <p>Get all photos where you appear, ready to download</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>GrabPic &copy; 2023 - No more searching through thousands of photos!</p>
+        </footer>
+    </div>
+
+    <script>
+        // Simple animation for steps
+        document.addEventListener('DOMContentLoaded', function() {
+            const steps = document.querySelectorAll('.step');
+            steps.forEach((step, index) => {
+                step.style.animationDelay = `${index * 0.2}s`;
+            });
+        });
+    </script>
+</body>
+</html>

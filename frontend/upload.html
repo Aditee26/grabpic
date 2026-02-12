@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Organizer - GrabPic</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-cloud-upload-alt"></i> Organizer Portal</h1>
+            <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Home</a>
+        </header>
+
+        <main>
+            <div class="upload-section">
+                <h2>Create New Event</h2>
+                
+                <div class="form-group">
+                    <label for="eventName">Event Name</label>
+                    <input type="text" id="eventName" placeholder="e.g., John & Jane's Wedding">
+                </div>
+                
+                <div class="form-group">
+                    <label for="organizerName">Your Name</label>
+                    <input type="text" id="organizerName" placeholder="Your name">
+                </div>
+                
+                <button id="createEventBtn" class="btn btn-primary">
+                    <i class="fas fa-plus-circle"></i> Create Event
+                </button>
+                
+                <div id="eventCreated" class="hidden">
+                    <div class="success-box">
+                        <h3><i class="fas fa-check-circle"></i> Event Created Successfully!</h3>
+                        <p>Your Event Code: <strong id="eventCodeDisplay"></strong></p>
+                        <p class="warning">Share this code with your attendees. They'll need it to access their photos.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="upload-section" id="uploadSection" style="display: none;">
+                <h2>Upload Event Photos</h2>
+                
+                <div class="upload-area" id="dropArea">
+                    <i class="fas fa-cloud-upload-alt fa-3x"></i>
+                    <h3>Drag & Drop Photos Here</h3>
+                    <p>or click to browse</p>
+                    <input type="file" id="fileInput" multiple accept="image/*" style="display: none;">
+                    <p class="upload-note">Supports JPG, PNG, GIF. Upload all event photos at once.</p>
+                </div>
+                
+                <div class="form-group">
+                    <label for="accessCode">Access Code</label>
+                    <input type="text" id="accessCode" placeholder="Enter the event code shown above">
+                </div>
+                
+                <input type="hidden" id="eventId">
+                
+                <div class="progress-container hidden" id="progressContainer">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <p id="progressText">Processing...</p>
+                </div>
+                
+                <div id="fileList" class="file-list"></div>
+                
+                <button id="uploadBtn" class="btn btn-primary" disabled>
+                    <i class="fas fa-upload"></i> Upload Photos
+                </button>
+                
+                <div id="uploadStatus" class="hidden"></div>
+            </div>
+        </main>
+    </div>
+
+    <script src="upload.js"></script>
+</body>
+</html>

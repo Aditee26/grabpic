@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./temp:/app/temp
+      - ./instance:/app/instance
+      - ./models:/app/models
+    environment:
+      - DATABASE_URL=sqlite:///instance/database.db
+      - DEBUG=True
+    restart: unless-stopped
+
+  # Optional PostgreSQL database
+  # db:
+  #   image: postgres:15
+  #   environment:
+  #     POSTGRES_DB: grabpic
+  #     POSTGRES_USER: grabpic
+  #     POSTGRES_PASSWORD: grabpic123
+  #   volumes:
+  #     - postgres_data:/var/lib/postgresql/data
+  #   ports:
+  #     - "5432:5432"
+
+volumes:
+  postgres_data:
